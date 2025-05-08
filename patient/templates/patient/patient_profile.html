@@ -1,0 +1,129 @@
+{% extends 'patient/base.html' %}
+{% load static %}
+{% block patient_base %}
+
+<div class="container">
+  <h1 style="font-family:'Ubuntu';font-size: 3rem;text-align: center; color: rgb(92, 46, 13);">My Profile</h1>
+  <button class="edit-option-buttons" style="font-size: 18px; float: right;">
+    <a href="{% url 'patient:editPatient' %}"> Edit your profile </a>
+  </button>
+</div>
+
+<div class="container" id="main-content" style="margin-left: 170px; margin-top: 8%; width: 100%; margin-bottom: 10%;">
+  <div class="row my-5">
+    <!-- Left Column -->
+    <div class="col-4 text-center" style="background-color: #f5f1da;"><br>
+      {% if profile.profile_pic %}
+        <img class="profile-photo" src="{{ profile.profile_pic.url }}" alt="Profile Picture" style="width: 150px; height: 150px; border-radius: 50%;"><br><br>
+      {% else %}
+        <img class="profile-photo" src="{% static 'images/default_profile_pic.png' %}" alt="Default Profile Picture" style="width: 150px; height: 150px; border-radius: 50%;"><br><br>
+      {% endif %}
+      <div class="row my-3 align-items-center">
+        <div class="col-6">
+          <div class="profile-field">
+            <b>NAME:</b>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="profile-content">
+            {{ profile.name }}
+          </div>
+        </div>
+      </div><br>
+      <div class="row my-3">
+        <div class="col-lg-5 profile-content">
+          <b>ACCESS CODE:</b>
+        </div>
+        <div class="col-lg-7 profile-content">
+          {{ profile.access_code }}
+        </div>
+      </div><br>
+    </div>
+
+    <!-- Middle Column -->
+    <div class="col-4 text-center" style="background-color: #f5f1da;"><br>
+      <div class="row my-3">
+        <div class="col-6">
+          <div class="profile-content">
+            <b>USERNAME:</b>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="profile-content">
+            {{ request.user.username }}
+          </div>
+        </div>
+      </div><br>
+      <div class="row my-3">
+        <div class="col-lg-6 profile-content">
+          <b>EMAIL:</b>
+        </div>
+        <div class="col-lg-6 profile-content">
+          {{ request.user.email }}
+        </div>
+      </div><br>
+      <div class="row my-3">
+        <div class="col-lg-6 profile-content">
+          <b>AGE:</b>
+        </div>
+        <div class="col-lg-6 profile-content">
+          {{ profile.age }}
+        </div>
+      </div><br>
+      <div class="row my-3">
+        <div class="col-lg-6 profile-content">
+          <b>GENDER:</b>
+        </div>
+        <div class="col-lg-6 profile-content">
+          {{ profile.gender }}
+        </div>
+      </div><br>
+      <div class="row my-3">
+        <div class="col-lg-6 profile-content">
+          <b>ADDRESS:</b>
+        </div>
+        <div class="col-lg-6 profile-content">
+          {{ profile.address }}
+        </div>
+      </div><br>
+    </div>
+
+    <!-- Right Column -->
+    <div class="col-4 text-center" style="background-color: #f5f1da;"><br>
+      <div class="row my-3">
+        <div class="col-lg-6 profile-content">
+          <b>CONTACT NUMBER:</b>
+        </div>
+        <div class="col-lg-6 profile-content">
+          {{ profile.phone }}
+        </div>
+      </div><br>
+      <div class="row my-3">
+        <div class="col-lg-6 profile-content">
+          <b>EMERGENCY CONTACT:</b>
+        </div>
+        <div class="col-lg-6 profile-content">
+          {{ profile.emergency_contact }}
+        </div>
+      </div><br>
+      <div class="row my-3">
+        <div class="col-lg-6 profile-content">
+          <b>PROFESSION:</b>
+        </div>
+        <div class="col-lg-6 profile-content">
+          {{ profile.profession }}
+        </div>
+      </div><br>
+      <div class="row my-3">
+        <div class="col-lg-6 profile-content">
+          <b>AADHAR NUMBER:</b>
+        </div>
+        <div class="col-lg-6 profile-content">
+          {{ profile.Aadhar_Number }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

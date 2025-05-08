@@ -1,0 +1,111 @@
+{% extends 'patient/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block patient_base %}
+
+<div class="container-fluid py-4">
+	<div class="card mx-auto" style="width:fit-content">
+		<div class="card-body">
+
+		<h1 style="font-family: Itim,cursive; text-align: center;" class="mb-3 mx-auto">Edit Profile</h1>
+
+			<form action="" method="POST" enctype="multipart/form-data">
+				{% csrf_token %}
+				
+				<!-- name -->
+				<div class="form-group row">
+					<div class="col-sm my-2">
+						<div class="input-group">
+							<input type="text" class="form-control" value="{{ profile.name }}" placeholder="Name" name="name">
+						</div>
+					</div>
+				</div>
+
+				<!-- age and gender -->
+				<div class="form-group row">
+					<div class="col-sm-5 my-2 mx-auto">
+						<div class="input-group">
+							<input type="number" class="form-control" min="0" value="{{ profile.age }}" placeholder="Age" name="age">
+						</div>
+					</div>
+					<div class="col-sm-5 my-2 mx-auto">
+						<select class="form-control" name="gender">
+							<option value="Male" {% if profile.gender == "Male" %}selected{% endif %}>Male</option>
+							<option value="Female" {% if profile.gender == "Female" %}selected{% endif %}>Female</option>
+							<option value="Others" {% if profile.gender == "Others" %}selected{% endif %}>Others</option>
+						</select>
+					</div>
+				</div>
+
+				<!-- phone and Aadhar -->
+				<div class="form-group row">
+					<div class="col-sm-5 my-2 mx-auto">
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<div class="input-group-text">+91</div>
+							</div>
+							<input type="tel" class="form-control" pattern="[1-9]{1}[0-9]{9}" value="{{ profile.phone }}" placeholder="Phone Number" name="phone">
+						</div>
+					</div>
+					<div class="col-sm-5 my-2 mx-auto">
+						<div class="input-group">
+							<input type="text" class="form-control" pattern="[0-9]{12}" value="{{ profile.Aadhar_Number }}" placeholder="Aadhar Number" name="Aadhar_Number">
+						</div>
+					</div>
+				</div>
+
+				<!-- address -->
+				<div class="form-group row">
+					<div class="col-sm my-2 mx-auto">
+						<div class="input-group">
+							<input type="text" class="form-control" value="{{ profile.address }}" placeholder="Address" name="address">
+						</div>
+					</div>
+				</div>
+
+				<!-- emergency contact -->
+				<div class="form-group row">
+					<div class="col-sm-6 my-2">
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<div class="input-group-text">+91</div>
+							</div>
+							<input type="tel" class="form-control" pattern="[1-9]{1}[0-9]{9}" value="{{ profile.emergency_contact }}" placeholder="Emergency Contact" name="emergency_contact">
+						</div>
+					</div>
+				</div>
+
+				<!-- profession -->
+				<div class="form-group row">
+					<div class="col-sm-6 my-2">
+						<div class="input-group">
+							<input type="text" class="form-control" value="{{ profile.profession }}" placeholder="Profession" name="profession">
+						</div>
+					</div>
+				</div>
+
+				<!-- profile_pic -->
+				<div class="form-group row">
+					<div class="col-sm my-2">
+						<div class="custom-file mb-3">
+							<input type="file" class="custom-file-input" id="profilepicinput" name="profile_pic">
+							<label class="custom-file-label" for="profilepicinput">Profile Picture</label>
+						</div>
+					</div>
+				</div>
+
+				<script>
+					$(".custom-file-input").on("change", function() {
+						var fileName = $(this).val().split("\\").pop();
+						$(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+					});
+				</script>
+				
+				<button class="btn btn-success" type="submit">Save</button>
+				<button class="btn btn-secondary" type="reset">Reset</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
