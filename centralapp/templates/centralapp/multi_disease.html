@@ -1,0 +1,185 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Pacifico|Cinzel|Oswald|Grandstander|Ubuntu">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/032a738741.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'centralapp/css_files/style.css' %}">
+    <link rel="stylesheet" href="{% static 'centralapp/css_files/static_style.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'centralapp/Images/icon.png' %}" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="{% static 'centralapp/js/app.js' %}"></script>
+    
+    <title>Breast Cancer</title>
+    <style>
+        .image-container {
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 50%;
+
+        }
+    
+        .image-container img {
+            width: 50%;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+    
+        .image-container:hover img {
+            transform: scale(1.05);
+        }
+    
+        .image-container:hover {
+            box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.2);
+        }
+    
+        .row {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+    
+        .btn {
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+    
+        .btn:hover {
+            background-color: #3a8684;
+        }
+    </style>
+    <script>
+        AOS.init();
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+</head>
+
+<body style="background: green;background-image:url('https://images.pexels.com/photos/1042423/pexels-photo-1042423.jpeg')">
+{% comment %} <img src="https://blog-images-1.pharmeasy.in/blog/production/wp-content/uploads/2021/10/21163930/Blog-image-sleepapnea.jpg" class="d-block w-100" alt="...">  {% endcomment %}
+
+   
+    <div id="startOfPage"></div>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light nav-bg" id="navstyle">
+        <a class="navbar-brand" href="{% url 'centralapp:mainpage' %}" style="font-family: Cinzel; font-size: 40px !important; color: white;">
+            <img src="{% static 'centralapp/Images/icon.png' %}" width="50" height="50" class="d-inline-block align-top" alt="" loading="lazy">
+            Breast cancer
+        </a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" style="font-size:20px;">
+            <ul class="navbar-nav ml-auto">
+                {% with 'login' as list %}
+                {% if request.resolver_match.url_name not in list.split %}
+                {% if user.is_authenticated %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link" style="background:#3a8684;color:white;border-radius: 8px;" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Hey {{request.user.username}}
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item nav-link" href="" style="color: rgb(0, 0, 0)">My Profile</a>
+                        <a class="dropdown-item nav-link" href="{% url 'centralapp:logout' %}" style="color: rgb(0, 0, 0)">Logout</a>
+                    </div>
+                </li>
+                {% else %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link mx-2" style="background:#3a8684;color:white;border-radius: 8px;" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Sign Up
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url 'patient:patientRegister' %}">Patient</a>
+                        <a class="dropdown-item" href="{% url 'doctor:doctorRegister' %}">Doctors</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mx-2" style="background:#3a8684;color:white;border-radius: 8px;" href="{% url 'centralapp:login' %}">Login</a>
+                </li>
+                {% endif %}
+                {% endif %}
+                {% endwith %}
+            </ul>
+        </div>
+    </nav>
+
+    <br>
+
+    <!-- Main Content -->
+        {% comment %} <h2 class="my-4" style="text-align:center; font-size:250%; color:white; background-color:#1c87c9; border-radius: 8px; padding: 10px;">
+           Breast Cancer Detection
+        </h2> {% endcomment %}
+        <form method="POST" action="/classification1/" enctype="multipart/form-data" style="text-align:center;">
+            {% csrf_token %}
+            <input type="file" name="upload" accept="image/*" style="font-size:150%; margin-top: 20px;color:white">
+            <br>
+            <button class="btn btn-dark my-4" type="submit" style="font-size:150%; border-radius: 8px;">Submit</button>
+        </form>
+    
+        <!-- Uploaded Image -->
+        <h2 class="my-4" style="text-align:center; font-size:150%; color:white">Uploaded Image</h2>
+    
+        <div class="row justify-content-center">
+            {% if file_url %}
+                    <img src="{{ file_url }}" class="img-fluid rounded shadow-lg" alt="Uploaded Image" width="250">
+            
+                    <img src="{{ MEDIA_URL }}grey.jpeg" alt="Grey Image" class="img-fluid rounded shadow-lg" width="250">
+           
+                    <img src="{{ MEDIA_URL }}binary.jpeg" alt="Binary Image" class="img-fluid rounded shadow-lg" width="250">
+            </div>
+            <br>
+            {% else %}
+            <p style="font-size:150%; text-align:center; color:red"></p>
+            {% endif %}
+        </div>
+    
+        <center>
+            <label style="color:white; font-family:courier; text-align:center; font-size:250%;">
+                <h4>{{ predictions }}</h4>
+            </label><br>
+            <label style="color:white; font-family:courier; text-align:center; font-size:250%;">
+                <h4>{{ predictions1 }}</h4>
+            </label><br>
+        </center>
+    <br><br><br>
+
+    <!-- Footer -->
+    {% comment %} <footer class="page-footer footer font-small mdb-color" style="background:linear-gradient(90deg, #24a19c,#cedebd);">
+        <div class="row text-center ml-5 text-md-left mt-3">
+            <hr class="w-100 clearfix d-md-none">
+            <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3 footer-style">
+                <h6 class="text-uppercase mb-2">Know-hows</h6>
+                <p>
+                    <a href="{% url 'centralapp:Inside_health_records' %}" class="useful_links">What's in my health record</a><br>
+                    <a href="{% url 'centralapp:patients_how_to_use' %}" class="useful_links">How to use my health record</a><br>
+                    <a href="{% url 'centralapp:doc_how_to_use' %}" class="useful_links">How to use the health record (for doctors)</a><br>
+                    <a href="{% url 'centralapp:FAQS' %}" class="useful_links">FAQs</a><br>
+                </p> {% endcomment %}
+            {% comment %} </div> {% endcomment %}
+
+            {% comment %} <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3 footer-style">
+                <h6 class="text-uppercase mb-2 font-weight-bold">Other useful links</h6>
+                <p>
+                    <a href="https://www.specific-useful-link.com" class="useful_links">Example Useful Link 1</a><br>
+                    <a href="https://www.another-useful-link.com" class="useful_links">Example Useful Link 2</a><br>
+                </p>
+            </div> {% endcomment %}
+
+            {% comment %} <hr class="w-100 clearfix d-md-none">
+        </div> {% endcomment %}
+    {% comment %} </footer> {% endcomment %}
+</body>
+
+</html>
